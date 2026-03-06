@@ -1,4 +1,4 @@
-# 🤖 Auto Farm For Aniime Football TCG
+# 🤖 Auto Farm For Anime Football TCG
 
 This project is a Discord self-bot automation tool that automatically sends slash commands (`/claim`, `/daily`, etc.) to specified channels. Initially optimized for the **Blue Lock TCG** bot, but it can be easily adapted for other Discord bots.
 
