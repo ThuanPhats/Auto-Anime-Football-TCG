@@ -1,0 +1,31 @@
+{
+  "accounts": [
+    {
+      "account_name": "Main_account",
+      "token": "MTQxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "target_bot_id": 1294579212199661578,
+      "channel_id": 11111111111111111111111,
+      "commands": {
+        "claim": true,
+        "daily": true,
+        "weekly": true,
+        "wage": true,
+        "club_wage": true
+      }
+    },
+    {
+      "account_name": "Alt_account",
+      "token": "OTIxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxs",
+      "target_bot_id": 1294579212199661578,
+      "channel_id": 1111111111111111111111,
+      "commands": {
+        "claim": true,
+        "daily": true,
+        "weekly": true,
+        "wage": true,
+        "club_wage": true
+      }
+    }
+  ]
+}
+
