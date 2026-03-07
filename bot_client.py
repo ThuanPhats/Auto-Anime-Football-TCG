@@ -3,7 +3,7 @@ import asyncio
 import random
 import re
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class AutoBot(discord.Client):
     def __init__(self, acc_name, target_bot_id, channel_id, cmd_config, *args, **kwargs):
@@ -18,7 +18,8 @@ class AutoBot(discord.Client):
             "daily": 24 * 60 * 60,
             "weekly": 7 * 24 * 60 * 60,
             "wage": 24 * 60 * 60,
-            "club_wage": 24 * 60 * 60
+            "club_wage": 24 * 60 * 60,
+            "arena-match": 15 * 60
         }
 
     async def on_ready(self):
@@ -33,6 +34,7 @@ class AutoBot(discord.Client):
         except Exception as e:
             print(f"[{self.acc_name}] Lỗi tải lệnh: {e}")
             return
+            
         if self.cmd_config.get("claim"):
             asyncio.create_task(self.run_command_loop(channel, commands, "claim", self.cooldowns["claim"]))
         if self.cmd_config.get("daily"):
@@ -43,6 +45,8 @@ class AutoBot(discord.Client):
             asyncio.create_task(self.run_command_loop(channel, commands, "wage", self.cooldowns["wage"]))
         if self.cmd_config.get("club_wage"):
             asyncio.create_task(self.run_command_loop(channel, commands, "club", self.cooldowns["club_wage"], sub_command="wage"))
+        if self.cmd_config.get("arena-match"):
+            asyncio.create_task(self.run_command_loop(channel, commands, "arena-match", self.cooldowns["arena-match"]))
 
     async def run_command_loop(self, channel, commands, cmd_name, base_cooldown, sub_command=None):
         target_cmd = None
@@ -60,9 +64,29 @@ class AutoBot(discord.Client):
             display_name = f"{cmd_name} {sub_command}"
         else:
             display_name = cmd_name
+            
+        daily_uses = 0
+        last_date = datetime.now().date()
+        
         await asyncio.sleep(random.randint(5, 30))
 
         while not self.is_closed():
+            current_date = datetime.now().date()
+            if current_date != last_date:
+                daily_uses = 0
+                last_date = current_date
+
+            if cmd_name == "arena-match" and daily_uses >= 10:
+                now = datetime.now()
+                tomorrow = now + timedelta(days=1)
+                midnight = datetime(tomorrow.year, tomorrow.month, tomorrow.day, 0, 0, 0)
+                sleep_time = (midnight - now).total_seconds()
+                next_run_minutes = int(sleep_time // 60)
+                
+                print(f"[{self.get_time()}] [{self.acc_name}] Đã hết 10 lượt /{display_name} hôm nay. Tạm ngưng {next_run_minutes} phút chờ qua ngày mới.")
+                await asyncio.sleep(sleep_time + random.randint(120, 600))
+                continue
+
             print(f"[{self.get_time()}] [{self.acc_name}] Gửi lệnh: /{display_name}")
             success = False
             for attempt in range(2):
@@ -82,6 +106,7 @@ class AutoBot(discord.Client):
                 print(f"[{self.get_time()}] [{self.acc_name}] Bỏ qua /{display_name} do mạng lag.")
                 await asyncio.sleep(120)  
                 continue
+                
             def check_reply(msg):
                 if msg.author.id != self.target_bot_id or msg.channel.id != channel.id:
                     return False
@@ -97,6 +122,7 @@ class AutoBot(discord.Client):
                     if cmd_name.lower() in msg_text:
                         return True
                 return False
+                
             sleep_time = base_cooldown
             try:
                 reply = await self.wait_for('message', check=check_reply, timeout=15.0)
@@ -105,6 +131,12 @@ class AutoBot(discord.Client):
                     for embed in reply.embeds:
                         if embed.description: content += f" {embed.description}"
                         if embed.title: content += f" {embed.title}"
+                        
+                if "Cooldown" not in content and "come back later" not in content:
+                    if cmd_name == "arena-match":
+                        daily_uses += 1
+                        print(f"[{self.get_time()}] [{self.acc_name}] Đã sử dụng /{display_name} lần thứ {daily_uses}/10.")
+                        
                 if "Cooldown" in content or "come back later" in content:
                     timestamps = re.findall(r'<t:(\d+)(?::[a-zA-Z])?>', content)
                     if timestamps:
@@ -131,5 +163,6 @@ class AutoBot(discord.Client):
             next_run_minutes = int(total_sleep // 60)
             print(f"[{self.get_time()}] [{self.acc_name}] Hoàn tất /{display_name}. Nghỉ ngơi {next_run_minutes} phút (Đã cộng {human_delay}s random).")
             await asyncio.sleep(total_sleep)
+            
     def get_time(self):
         return datetime.now().strftime("%H:%M:%S")
