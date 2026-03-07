@@ -1,31 +1,32 @@
 {
   "accounts": [
     {
-      "account_name": "Main_account",
-      "token": "MTQxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "account_name": "Acc_Chinh",
+      "token": "MTQxxxxxxxxxxxxxxxxxxxxxxxxx",
       "target_bot_id": 1294579212199661578,
-      "channel_id": 11111111111111111111111,
+      "channel_id": 111111111111111111,
       "commands": {
         "claim": true,
         "daily": true,
         "weekly": true,
         "wage": true,
-        "club_wage": true
+        "club_wage": false,
+        "arena-match": true
       }
     },
     {
-      "account_name": "Alt_account",
-      "token": "OTIxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxs",
+      "account_name": "Acc_Chinh2",
+      "token": "OTIxxxxxxxxxxxxxxxxxxxxxxxxxx",
       "target_bot_id": 1294579212199661578,
-      "channel_id": 1111111111111111111111,
+      "channel_id": 111111111111111111,
       "commands": {
         "claim": true,
         "daily": true,
         "weekly": true,
         "wage": true,
-        "club_wage": true
+        "club_wage": false,
+        "arena-match": true
       }
     }
   ]
 }
-
