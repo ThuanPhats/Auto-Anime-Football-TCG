@@ -1,4 +1,4 @@
-# 🤖 Auto Farm For Anime Football TCG
+# 🤖 Auto Farm For Blue Lock TCG
 
 ![Blue Lock TCG](banner.png)
 
@@ -35,15 +35,14 @@ To run this script, your machine needs to have the following installed:
 
 **Step 1:** Download the source code (Clone the repository or download the ZIP file and extract it).
 
-**Step 2:** Open your Terminal (or Command Prompt / PowerShell) in the source code directory.
+**Step 2:** Run `install.bat` to automatically install all required dependencies.
 
-**Step 3:** Install the required dependencies using the following command:
-```bash
-pip install -r requirements.txt
-```
-**Step 4:** Adjust your config.json file
+**Step 3:** Run `edit.bat` to open the simple Config Editor interface to set up your accounts and commands.
 
-**Step 5:** Run command:
-```bash
-python main.py
-```
+**Step 4:** Run `run.bat` to start the bot!
+
+---
+
+## 💻 24/7 Bot Hosting
+Don't want to keep your PC on all day? I offer **24/7 Bot Hosting for only $2/month**! 
+Contact me on Discord: **dieuphat**
