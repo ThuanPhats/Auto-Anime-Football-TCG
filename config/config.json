@@ -1,0 +1,32 @@
+{
+  "accounts": [
+    {
+      "account_name": "Acc_Chinh",
+      "token": "MTQxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "target_bot_id": 1294579212199661578,
+      "channel_id": 111111111111111111,
+      "commands": {
+        "claim": true,
+        "daily": true,
+        "weekly": true,
+        "wage": true,
+        "club_wage": false,
+        "arena-match": true
+      }
+    },
+    {
+      "account_name": "Acc_Chinh2",
+      "token": "OTIxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "target_bot_id": 1294579212199661578,
+      "channel_id": 111111111111111111,
+      "commands": {
+        "claim": true,
+        "daily": true,
+        "weekly": true,
+        "wage": true,
+        "club_wage": false,
+        "arena-match": true
+      }
+    }
+  ]
+}

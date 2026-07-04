@@ -1,14 +1,14 @@
 import asyncio
-from config_manager import load_config
-from bot_client import AutoBot
+from src.core.config_manager import load_config
+from src.core.bot_client import AutoBot
 
 async def main():
     config = load_config()
     accounts = config.get("accounts", [])
     if not accounts:
-        print("[LỖI] Không có tài khoản nào được cấu hình trong config.json")
+        print("[ERROR] No accounts configured in config.json")
         return
-    print(f"--- KHỞI ĐỘNG HỆ THỐNG VỚI {len(accounts)} TÀI KHOẢN ---")
+    print(f"--- STARTING SYSTEM WITH {len(accounts)} ACCOUNTS ---")
     clients = []
     tasks = []
 
@@ -18,10 +18,10 @@ async def main():
         target_bot_id = acc.get("target_bot_id")
         channel_id = acc.get("channel_id")
         if not token or token == "TOKEN_CUA_ACC_CLONE":
-            print(f"[{acc_name}] Bỏ qua vì chưa cấu hình Token.")
+            print(f"[{acc_name}] Skipped because Token is not configured.")
             continue
         if not target_bot_id or not channel_id:
-            print(f"[{acc_name}] CẢNH BÁO: Bỏ qua vì thiếu target_bot_id hoặc channel_id.")
+            print(f"[{acc_name}] WARNING: Skipped due to missing target_bot_id or channel_id.")
             continue
         client = AutoBot(
             acc_name=acc_name,
@@ -33,7 +33,7 @@ async def main():
         tasks.append(client.start(token))
 
     if not tasks:
-        print("Không có token/cấu hình hợp lệ nào để chạy.")
+        print("No valid token/configuration to run.")
         return
     await asyncio.gather(*tasks)
 
@@ -41,4 +41,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("\n[HỆ THỐNG] Đã dừng tool an toàn.")
+        print("\n[SYSTEM] Tool stopped safely.")

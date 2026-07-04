@@ -1,5 +1,10 @@
 # 🤖 Auto Farm For Anime Football TCG
 
+![Blue Lock TCG](banner.png)
+
+> **About Blue Lock TCG:**
+> Blue Lock TCG is a straightforward 5v5 card-based game where you build a team, open packs, and compete in ranked arenas. Each card is inspired by FIFA players, but with the energy and style of Blue Lock characters. You create your lineup, set formations, and enter battles against other players. Open packs to get new cards, trade with others, and climb the ranked ladder to win prizes.
+
 This project is a Discord self-bot automation tool that automatically sends slash commands (`/claim`, `/daily`, etc.) to specified channels. Initially optimized for the **Blue Lock TCG** bot, but it can be easily adapted for other Discord bots.
 
 The system supports running multiple accounts simultaneously, automatically reads bot response messages to calculate highly accurate cooldown times, and simulates human delay to minimize detection risks.
